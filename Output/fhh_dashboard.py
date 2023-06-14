@@ -11,80 +11,152 @@ future_occ = pd.read_excel('future_occ.xlsx')
 past_rev = pd.read_excel('past_rev.xlsx')
 past_occ = pd.read_excel('past_occ.xlsx')
 
-future_rev = future_rev.round(0)
-future_occ = future_occ.round(2)
-past_rev = past_rev.round(0)
-past_occ = past_occ.round(2)
-
 # Initialize the app - incorporate a Dash Mantine theme
 external_stylesheets = [dmc.theme.DEFAULT_COLORS]
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Define the conditional formatting styles
-
 style = []
 
-datasets = [future_rev, future_occ, past_rev, past_occ]
+datasets = {
+    'future_rev': future_rev,
+    'future_occ': future_occ,
+    'past_rev': past_rev,
+    'past_occ': past_occ
+}
 
-for dataset in datasets:
+for dataset_name, dataset in datasets.items():
     for col in dataset.columns[1:32]:
-        non_blank_values = dataset[col].loc[(dataset[col].notna()) & (dataset[col] != '')]
-        quantiles = non_blank_values.quantile([0.2, 0.4, 0.6, 0.8])
+        if dataset_name == 'future_rev' or dataset_name == 'past_rev':
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 0.01 && {{{}}} <= 500'.format(col, col)
+                    },
+                    'backgroundColor': '#ea5545',
+                    'color': 'white'
+                }
+            )
 
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 501 && {{{}}} <= 1000'.format(col, col)
+                    },
+                    'backgroundColor': '#ef9b20',
+                    'color': 'white'
+                }
+            )
+
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 1001 && {{{}}} <= 1500'.format(col, col)
+                    },
+                    'backgroundColor': '#ede15b',
+                    'color': 'black'
+                }
+            )
+
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 1501 && {{{}}} <= 2000'.format(col, col)
+                    },
+                    'backgroundColor': '#bdcf32',
+                    'color': 'white'
+                }
+            )
+
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 2000'.format(col)
+                    },
+                    'backgroundColor': '#87bc45',
+                    'color': 'white'
+                }
+            )
+
+        elif dataset_name == 'future_occ' or dataset_name == 'past_occ':
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 0.01 && {{{}}} <= 0.2'.format(col, col)
+                    },
+                    'backgroundColor': '#ea5545',
+                    'color': 'white'
+                }
+            )
+
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 0.21 && {{{}}} <= 0.4'.format(col, col)
+                    },
+                    'backgroundColor': '#ef9b20',
+                    'color': 'white'
+                }
+            )
+
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 0.41 && {{{}}} <= 0.6'.format(col, col)
+                    },
+                    'backgroundColor': '#ede15b',
+                    'color': 'black'
+                }
+            )
+
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 0.61 && {{{}}} <= 0.8'.format(col, col)
+                    },
+                    'backgroundColor': '#bdcf32',
+                    'color': 'white'
+                }
+            )
+
+            style.append(
+                {
+                    'if': {
+                        'column_id': str(col),
+                        'filter_query': '{{{}}} >= 0.81 && {{{}}} <= 1'.format(col, col)
+                    },
+                    'backgroundColor': '#87bc45',
+                    'color': 'white'
+                }
+            )
+
+        # Additional style for 0 values
         style.append(
             {
                 'if': {
                     'column_id': str(col),
-                    'filter_query': '{{{}}} < {} && {{{}}} != ""'.format(col, quantiles[0.2], col)
+                    'filter_query': '{{{}}} = 0'.format(col)
                 },
-                'backgroundColor': '#ea5545',
+                'backgroundColor': 'white',
                 'color': 'white'
             }
         )
 
-        style.append(
-            {
-                'if': {
-                    'column_id': str(col),
-                    'filter_query': '{{{}}} >= {} && {{{}}} < {} && {{{}}} != ""'.format(col, quantiles[0.2], col, quantiles[0.4], col)
-                },
-                'backgroundColor': '#ef9b20',
-                'color': 'white'
-            }
-        )
 
-        style.append(
-            {
-                'if': {
-                    'column_id': str(col),
-                    'filter_query': '{{{}}} >= {} && {{{}}} < {} && {{{}}} != ""'.format(col, quantiles[0.4], col, quantiles[0.6], col)
-                },
-                'backgroundColor': '#ede15b',
-                'color': 'black'
-            }
-        )
 
-        style.append(
-            {
-                'if': {
-                    'column_id': str(col),
-                    'filter_query': '{{{}}} >= {} && {{{}}} < {} && {{{}}} != ""'.format(col, quantiles[0.6], col, quantiles[0.8], col)
-                },
-                'backgroundColor': '#bdcf32',
-                'color': 'white'
-            }
-        )
-
-        style.append(
-            {
-                'if': {
-                    'column_id': str(col),
-                    'filter_query': '{{{}}} >= {} && {{{}}} != ""'.format(col, quantiles[0.8], col)
-                },
-                'backgroundColor': '#87bc45',
-                'color': 'white'
-            }
-        )
+future_rev = future_rev.round(0)
+future_occ = future_occ.round(2)
+past_rev = past_rev.round(0)
+past_occ = past_occ.round(2)
 
 # App layout
 app.layout = dmc.Container(
