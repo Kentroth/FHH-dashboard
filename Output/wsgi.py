@@ -1,4 +1,2 @@
-from freeze import app as application
-
-if __name__ == '__main__':
-    application.run()
+from fhh_dashboard import app
+application = app.server
