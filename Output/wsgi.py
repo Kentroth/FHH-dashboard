@@ -1,2 +1,2 @@
-from fhh_dashboard import app
+from fhh_dash import app
 application = app.server

@@ -1,1 +1,1 @@
-web: gunicorn fhh_dashboard:server
+web: gunicorn fhh_dash:server
