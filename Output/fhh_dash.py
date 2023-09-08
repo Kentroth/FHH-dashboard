@@ -92,7 +92,7 @@ for dataset_name, dataset in datasets.items():
                     'color': 'white'
                 }
             )
-
+        #***This is where the incorrect formatting is happening***
         elif dataset_name == 'future_occ' or dataset_name == 'past_occ':
             style.append(
                 {
@@ -105,7 +105,6 @@ for dataset_name, dataset in datasets.items():
                 }
             )
 
-            # Add formatting conditions for different ranges
             style.append(
                 {
                     'if': {
@@ -117,7 +116,6 @@ for dataset_name, dataset in datasets.items():
                 }
             )
 
-            # Add formatting conditions for different ranges
             style.append(
                 {
                     'if': {
@@ -129,7 +127,6 @@ for dataset_name, dataset in datasets.items():
                 }
             )
 
-            # Add formatting conditions for different ranges
             style.append(
                 {
                     'if': {
@@ -141,7 +138,6 @@ for dataset_name, dataset in datasets.items():
                 }
             )
 
-            # Add formatting conditions for different ranges
             style.append(
                 {
                     'if': {
@@ -152,7 +148,8 @@ for dataset_name, dataset in datasets.items():
                     'color': 'white'
                 }
             )
-        elif dataset_name == 'future_adr' or dataset_name == 'past_adr'or dataset_name == 'past_revpab'or dataset_name == 'past_revpab':
+
+        elif dataset_name == 'future_adr' or dataset_name == 'past_adr'or dataset_name == 'past_revpab'or dataset_name == 'future_revpab':
             style.append(
                 {
                     'if': {
