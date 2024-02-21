@@ -368,7 +368,7 @@ for col in future_book.columns[3:35]:
         {
             'if': {
                 'column_id': str(col),
-                'filter_query': '{{{}}} >= .8 && {{{}}} <= .82'.format(col, col)
+                'filter_query': '{{{}}} >= .8 && {{{}}} <= .86'.format(col, col)
                     },
             'backgroundColor': '#87bc45',
             'color': 'white'
@@ -378,7 +378,7 @@ for col in future_book.columns[3:35]:
         {
             'if': {
                 'column_id': str(col),
-                'filter_query': '{{{}}} >= .86'.format(col)
+                'filter_query': '{{{}}} >= .861'.format(col)
                     },
             'backgroundColor': '#364b1b',
             'color': 'white'
