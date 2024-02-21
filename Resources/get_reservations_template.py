@@ -18,7 +18,7 @@
            'propertyCurrency': 'USD',
            'reservationCheckIn': '2023-06-20',
            'reservationCheckOut': '2023-06-21',
-           **reservationID': '3843295675679',**
+           **reservationID': '1111111111111',**
            'rooms': [{**adults': '1'**,
                       'children': '0',
                       'detailedRoomRateNames': [],
@@ -34,11 +34,11 @@
                       'roomStatus': 'not_checked_in',
                       'roomTypeID': '215605',
                       'roomTypeName': 'Deluxe 8 Bed Female Dorm',
-                      'subReservationID': '3843295675679'}],
+                      'subReservationID': '1111111111111'}],
            'source': {'category': 'OTA',
                       'name': 'Airbnb (API)',
                       'paymentCollect': 'hotel'},
            'sourceCategory': 'OTA',
            **sourceName': 'Airbnb (API)'**
-           'sourceReservationID': 'HMN89DXAQD',
+           'sourceReservationID': '1111111111111',
            'status': 'confirmed'},
