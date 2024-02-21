@@ -8,7 +8,7 @@ future_rev = pd.read_excel('future_rev.xlsx')
 past_rev = pd.read_excel('past_rev.xlsx')
 future_occ = pd.read_excel('future_occ.xlsx')
 past_occ = pd.read_excel('past_occ.xlsx')
-future_adr = pd.read_excel('future_adr.xlsx')
+future_adr = pd.read_excel('future_adr.xlsx') 
 past_adr = pd.read_excel('past_adr.xlsx')
 future_revpab = pd.read_excel('future_revpab.xlsx')
 past_revpab = pd.read_excel('past_revpab.xlsx')
@@ -305,7 +305,7 @@ for col in future_rev.columns[2:33]:
     )
     style_revpab.append(
         {
-            'if': {
+            'if': { 
                 'column_id': str(col),
                 'filter_query': '{{{}}} >= 50.1'.format(col)
                     },
@@ -313,7 +313,7 @@ for col in future_rev.columns[2:33]:
             'color': 'white'
         }
     )
-for col in future_rev.columns[2:33]:
+for col in future_book.columns[3:35]:
     style_book.append(
         {
             'if': {
@@ -515,10 +515,10 @@ def update_data_table(value_top, value_middle):
         data_top = past_revpab.to_dict('records')
         style_conditional = style_revpab
     elif value_top == 'future_book':
-        data_top = future_revpab.to_dict('records')
+        data_top = future_book.to_dict('records')
         style_conditional = style_book
     elif value_top == 'past_book':
-        data_top = past_revpab.to_dict('records')
+        data_top = past_book.to_dict('records')
         style_conditional = style_book
     
     if value_middle == 'future_rev':
@@ -546,10 +546,10 @@ def update_data_table(value_top, value_middle):
         data_mid = past_revpab.to_dict('records')
         style_conditional_1 = style_revpab
     elif value_middle == 'future_book':
-        data_mid = future_revpab.to_dict('records')
+        data_mid = future_book.to_dict('records')
         style_conditional_1 = style_book
     elif value_middle == 'past_book':
-        data_mid = past_revpab.to_dict('records')
+        data_mid = past_book.to_dict('records')
         style_conditional_1 = style_book
 
     return data_top, style_conditional, data_mid, style_conditional_1  
